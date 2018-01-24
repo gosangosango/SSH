@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.ssh.dao.mybatis.mapper.DeviceMapper">
+
+
+	<insert id="createDevice" parameterType="Device">
+		INSERT INTO DEVICE_TB(DEVICEID, DEVICENAME, DEVICEOWNER, DEVICEUSERPH, DEVICEUSER)
+		VALUES(#{deviceId}, #{deviceName}, #{deviceOwner}, #{deviceUserPH}, #{deviceUser})
+	</insert>
+
+	<update id="updateDevice" parameterType="Device">
+		UPDATE DEVICE_TB
+		SET DEVICEID = #{deviceId},
+		    DEVICENAME = #{deviceName},
+		    DEVICEOWNER = #{deviceOwner},
+		    DEVICEUSERPH = #{deviceUserPH},
+		    DEVICEUSER = #{deviceUser}
+		WHERE DEVICEID = #{deviceId}
+	</update>
+	
+	<delete id="deleteDevice" parameterType="String">
+		DELETE FROM DEVICE_TB WHERE DEVICEID = #{deviceId}
+	</delete>
+	
+	
+	<select id="retrieveDevicesByOwner" resultType="Device">
+		SELECT DEVICEID, DEVICENAME, DEVICEOWNER, DEVICEUSERPH, DEVICEUSER 
+		FROM DEVICE_TB
+		WHERE DEVICEOWNER = #{userId}
+	</select>
+	
+	<select id="retrieveDevice" resultType="Device">
+		SELECT DEVICEID, DEVICENAME, DEVICEOWNER, DEVICEUSERPH, DEVICEUSER 
+		FROM DEVICE_TB
+		WHERE DEVICEID = #{deviceId}
+	</select>
+	
+	
+
+
+</mapper>

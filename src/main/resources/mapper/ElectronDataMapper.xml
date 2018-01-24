@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.ssh.dao.mybatis.mapper.ElectronDataMapper">
+
+
+	<insert id="createData" parameterType="ElectronData">
+		INSERT INTO DATA_TB(DATAID, DEVICEID, KIND, RECEIVEDDATE, GPSLATITUDE, GPSLONGITUDE, CHECKED)
+		VALUES(DATA_NO_SEQ.NEXTVAL, #{deviceId}, #{kind}, #{receivedDate}, #{gpsLatitude}, #{gpsLongitude}, #{checked})
+	</insert>
+
+	<update id="updateData" parameterType="ElectronData">
+		UPDATE DATA_TB
+		SET CHECKED = #{checked}
+		WHERE DATAID = #{dataId}
+	</update>
+	
+	<select id="retrieveNewestData" resultType="ElectronData">
+	<![CDATA[
+		SELECT * 
+		FROM(SELECT * FROM DATA_TB ORDER BY DATAID DESC)
+		WHERE DEVICEID = #{deviceId} AND ROWNUM <= 5 
+	]]>
+	</select>
+	
+	<select id="retrieveUncheckedData"  parameterType="String" resultType="ElectronData">
+		SELECT *
+		FROM DATA_TB
+		WHERE CHECKED = 'N' AND DEVICEID = #{deviceId}	
+	</select>
+
+
+</mapper>
