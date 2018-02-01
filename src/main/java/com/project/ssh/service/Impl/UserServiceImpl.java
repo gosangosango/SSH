@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public boolean login(String userId, String password) {
 		User loginuser = findUser(userId);
-	
+		
 		if(loginuser == null){
 				SSHRuntimeException ex = new SSHRuntimeException("없는 아이디거나 비밀번호가 일치하지 않습니다.");
 				ex.setRedirectURL("/showLogin.do");

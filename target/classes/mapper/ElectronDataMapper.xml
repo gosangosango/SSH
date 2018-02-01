@@ -21,8 +21,8 @@
 	<select id="retrieveNewestData" resultType="ElectronData">
 	<![CDATA[
 		SELECT * 
-		FROM(SELECT * FROM DATA_TB ORDER BY DATAID DESC)
-		WHERE DEVICEID = #{deviceId} AND ROWNUM <= 5 
+		FROM DATA_TB
+		WHERE DEVICEID = #{deviceId} LIMIT 5
 	]]>
 	</select>
 	
